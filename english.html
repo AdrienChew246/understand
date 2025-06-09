@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3x3 Colorful Word Grid</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f5f5;
+            margin: 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 300px;
+        }
+        .square {
+            width: 90px;
+            height: 90px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .word {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        input {
+            width: 80%;
+            padding: 4px;
+            border-radius: 4px;
+            text-align: center;
+            border: 2px solid #aaa;
+            background: #fff;
+            transition: background 0.2s;
+        }
+        .square.empty input {
+            background: #fff;
+            border: 2px solid #aaa;
+        }
+        .square.correct input {
+            background: #a0e0a0;
+            border: 2px solid #4CAF50;
+        }
+        .square.wrong input {
+            background: #ffaaaa;
+            border: 2px solid #FF5252;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid" id="grid"></div>
+
+    <script>
+        // CUSTOMIZE HERE: Colors for each square
+        const colors = [
+            '#e6f7ff', '#fff2e6', '#e6ffe6',
+            '#fff0f0', '#f0f0ff', '#fffae6',
+            '#f5e6ff', '#e6fff5', '#ffe6e6'
+        ];
+
+        // CUSTOMIZE HERE: Words to display and their correct answers
+        // Each item: ["Displayed Word", "Correct Answer"]
+        const wordPairs = [
+            ["Apple", "apple"],
+            ["Banana", "banana"],
+            ["Cherry", "cherry"],
+            ["Date", "date"],
+            ["Fig", "fig"],
+            ["Grape", "grape"],
+            ["Kiwi", "kiwi"],
+            ["Lemon", "lemon"],
+            ["Mango", "mango"]
+        ];
+
+        // Add squares to the grid
+        const grid = document.getElementById('grid');
+        wordPairs.forEach(([displayWord, correctWord], index) => {
+            const square = document.createElement('div');
+            square.className = 'square empty';
+            square.style.backgroundColor = colors[index];
+            square.innerHTML = `
+                <div class="word">${displayWord}</div>
+                <input type="text" data-correct="${correctWord}" oninput="checkInput(this)">
+            `;
+            grid.appendChild(square);
+        });
+
+        function checkInput(inputElement) {
+            const userInput = inputElement.value.trim().toLowerCase();
+            const correctWord = inputElement.getAttribute('data-correct').toLowerCase();
+            const square = inputElement.parentElement;
+
+            square.classList.remove('empty', 'correct', 'wrong');
+
+            if (userInput === '') {
+                square.classList.add('empty');
+            } else if (userInput === correctWord) {
+                square.classList.add('correct');
+            } else {
+                square.classList.add('wrong');
+            }
+        }
+    </script>
+</body>
+</html>
