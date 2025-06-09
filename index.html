@@ -3,26 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3x3 Colorful Word Grid</title>
+    <title>Multi-Set Grid with Custom Color Sets</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             background: #f5f5f5;
             margin: 0;
         }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+        .set {
+            margin-bottom: 30px;
+        }
+        .divider {
+            width: 80%;
+            height: 1px;
+            background: #ccc;
+            margin: 20px auto;
+        }
+        .grid-container {
+            display: flex;
             gap: 10px;
-            width: 300px;
+            margin-bottom: 10px;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         .square {
-            width: 90px;
-            height: 90px;
+            width: 100px;
+            height: 100px;
             border-radius: 8px;
             display: flex;
             flex-direction: column;
@@ -59,42 +73,108 @@
     </style>
 </head>
 <body>
-    <div class="grid" id="grid"></div>
+    <div id="sets-container"></div>
 
     <script>
-        // CUSTOMIZE HERE: Colors for each square
-        const colors = [
-            '#e6f7ff', '#fff2e6', '#e6ffe6',
-            '#fff0f0', '#f0f0ff', '#fffae6',
-            '#f5e6ff', '#e6fff5', '#ffe6e6'
+        // CUSTOMIZE HERE: Add as many sets as you want
+        // Each set is an object with:
+        //   - wordPairs: array of [displayWord, correctWord] (or [null, null] for blanks)
+        //   - colors: array of colors for this set's squares
+        const sets = [
+            // Set 1
+            {
+                wordPairs: [
+                    ["Apple", "apple"],
+                    ["Banana", "banana"],
+                    ["Cherry", "cherry"],
+                    ["Date", "date"],
+                    [null, null], // Blank square
+                    ["Grape", "grape"],
+                    ["Kiwi", "kiwi"],
+                    ["Lemon", "lemon"],
+                    [null, null]  // Blank square
+                ],
+                colors: [
+                    '#e6f7ff', '#fff2e6', '#e6ffe6',
+                    '#fff0f0', '#f0f0ff', '#fffae6',
+                    '#f5e6ff', '#e6fff5', '#ffe6e6'
+                ]
+            },
+            // Set 2
+            {
+                wordPairs: [
+                    ["Dog", "dog"],
+                    ["Cat", "cat"],
+                    ["Bird", "bird"],
+                    ["Fish", "fish"],
+                    [null, null],
+                    ["Lion", "lion"]
+                ],
+                colors: [
+                    '#ffdfe0', '#d0f0c0', '#e0e0ff',
+                    '#fff0d0', '#f0e0ff', '#d0f0ff'
+                ]
+            }
+            // Add more sets as needed
         ];
 
-        // CUSTOMIZE HERE: Words to display and their correct answers
-        // Each item: ["Displayed Word", "Correct Answer"]
-        const wordPairs = [
-            ["Apple", "apple"],
-            ["Banana", "banana"],
-            ["Cherry", "cherry"],
-            ["Date", "date"],
-            ["Fig", "fig"],
-            ["Grape", "grape"],
-            ["Kiwi", "kiwi"],
-            ["Lemon", "lemon"],
-            ["Mango", "mango"]
-        ];
+        const setsContainer = document.getElementById('sets-container');
 
-        // Add squares to the grid
-        const grid = document.getElementById('grid');
-        wordPairs.forEach(([displayWord, correctWord], index) => {
-            const square = document.createElement('div');
-            square.className = 'square empty';
-            square.style.backgroundColor = colors[index];
-            square.innerHTML = `
-                <div class="word">${displayWord}</div>
-                <input type="text" data-correct="${correctWord}" oninput="checkInput(this)">
-            `;
-            grid.appendChild(square);
-        });
+        // Function to build a grid for a set
+        function buildGrid(wordPairs, colors, setIndex) {
+            const setWrapper = document.createElement('div');
+            setWrapper.className = 'set';
+
+            const gridContainer = document.createElement('div');
+            gridContainer.className = 'grid-container';
+
+            // Group squares into columns of max 3
+            const columns = [];
+            let currentColumn = [];
+            wordPairs.forEach((pair, index) => {
+                currentColumn.push(pair);
+                if (currentColumn.length === 3 || index === wordPairs.length - 1) {
+                    columns.push([...currentColumn]);
+                    currentColumn = [];
+                }
+            });
+
+            // Build the grid for this set
+            columns.forEach((columnPairs, colIndex) => {
+                const column = document.createElement('div');
+                column.className = 'column';
+                columnPairs.forEach(([displayWord, correctWord], rowIndex) => {
+                    const colorIndex = colIndex * 3 + rowIndex;
+                    const color = colors[colorIndex % colors.length];
+                    const square = document.createElement('div');
+                    square.className = 'square empty';
+                    square.style.backgroundColor = color;
+                    if (displayWord === null || correctWord === null) {
+                        // Blank square
+                        square.innerHTML = '';
+                    } else {
+                        square.innerHTML = `
+                            <div class="word">${displayWord}</div>
+                            <input type="text" data-correct="${correctWord}" oninput="checkInput(this)">
+                        `;
+                    }
+                    column.appendChild(square);
+                });
+                gridContainer.appendChild(column);
+            });
+
+            setWrapper.appendChild(gridContainer);
+
+            // Add divider after each set except the last one
+            if (setIndex < sets.length - 1) {
+                const divider = document.createElement('div');
+                divider.className = 'divider';
+                setsContainer.appendChild(setWrapper);
+                setsContainer.appendChild(divider);
+            } else {
+                setsContainer.appendChild(setWrapper);
+            }
+        }
 
         function checkInput(inputElement) {
             const userInput = inputElement.value.trim().toLowerCase();
@@ -111,6 +191,11 @@
                 square.classList.add('wrong');
             }
         }
+
+        // Build all sets on page load
+        sets.forEach((set, index) => {
+            buildGrid(set.wordPairs, set.colors, index);
+        });
     </script>
 </body>
 </html>
