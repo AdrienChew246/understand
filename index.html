@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Set Grid with Custom Color Sets</title>
+    <title>Understand-English</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,15 +12,15 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: #f5f5f5;
+            background: #6e6e6e;
             margin: 0;
         }
         .set {
             margin-bottom: 30px;
         }
         .divider {
-            width: 80%;
-            height: 1px;
+            width: 100%;
+            height: 3px;
             background: #ccc;
             margin: 20px auto;
         }
@@ -35,8 +35,8 @@
             gap: 10px;
         }
         .square {
-            width: 100px;
-            height: 100px;
+            width: 130px;
+            height: 130px;
             border-radius: 8px;
             display: flex;
             flex-direction: column;
@@ -76,49 +76,116 @@
     <div id="sets-container"></div>
 
     <script>
-        // CUSTOMIZE HERE: Add as many sets as you want
-        // Each set is an object with:
-        //   - wordPairs: array of [displayWord, correctWord] (or [null, null] for blanks)
-        //   - colors: array of colors for this set's squares
         const sets = [
             // Set 1
             {
                 wordPairs: [
-                    ["Apple", "apple"],
-                    ["Banana", "banana"],
-                    ["Cherry", "cherry"],
-                    ["Date", "date"],
-                    [null, null], // Blank square
-                    ["Grape", "grape"],
-                    ["Kiwi", "kiwi"],
-                    ["Lemon", "lemon"],
-                    [null, null]  // Blank square
+                    [null, null], ["Type this", "Type this"], [null, null],
+                    ["High", "Hi"], ["Hi", "Hi"], [null, null],
+                    [null, null], [null, null], ["Bottom", "Low"],
+                    ["Write", "Right"], ["Right", "Right"], ["Correct", "Right"],
+                    ["Patients", "Patience"], [null, null], [null, null]
                 ],
                 colors: [
-                    '#e6f7ff', '#fff2e6', '#e6ffe6',
-                    '#fff0f0', '#f0f0ff', '#fffae6',
-                    '#f5e6ff', '#e6fff5', '#ffe6e6'
+                    '#6e6e6e', '#f0f0f0', '#6e6e6e',
+                    '#f0f0f0', '#f0f0f0', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#f0f0f0',
+                    '#f0f0f0', '#f0f0f0', '#f0f0f0',
+                    '#f0f0f0', '#6e6e6e', '#6e6e6e'
                 ]
             },
             // Set 2
             {
                 wordPairs: [
-                    ["Dog", "dog"],
-                    ["Cat", "cat"],
-                    ["Bird", "bird"],
-                    ["Fish", "fish"],
-                    [null, null],
-                    ["Lion", "lion"]
+                    ["Brake", "Break"], [null, null], ["Fix", "Break"],
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null]
                 ],
                 colors: [
-                    '#ffdfe0', '#d0f0c0', '#e0e0ff',
-                    '#fff0d0', '#f0e0ff', '#d0f0ff'
+                    '#f0f0f0', '#6e6e6e', '#212121',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e'
+                ]
+            },
+            // Set 3
+            {
+                wordPairs: [
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null]
+                ],
+                colors: [
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e'
+                ]
+            },
+            // Set 4
+            {
+                wordPairs: [
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null]
+                ],
+                colors: [
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e'
+                ]
+            },
+            // Set 5
+            {
+                wordPairs: [
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null],
+                    [null, null], [null, null], [null, null]
+                ],
+                colors: [
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e',
+                    '#6e6e6e', '#6e6e6e', '#6e6e6e'
                 ]
             }
-            // Add more sets as needed
         ];
 
         const setsContainer = document.getElementById('sets-container');
+
+        // Add divider at the top
+        const topDivider = document.createElement('div');
+        topDivider.className = 'divider';
+        setsContainer.appendChild(topDivider);
+
+        // Function to generate placeholder for answer (spaces remain as spaces)
+        function generatePlaceholder(answer) {
+            return answer.split('').map(char => char === ' ' ? ' ' : '_').join('');
+        }
+
+        // Convert hex to RGB
+        function isDarkColor(hex) {
+            const r = parseInt(hex.substr(1, 2), 16);
+            const g = parseInt(hex.substr(3, 2), 16);
+            const b = parseInt(hex.substr(5, 2), 16);
+            // Calculate luminance
+            const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+            return brightness < 128; // Threshold for dark colors
+        }
+
 
         // Function to build a grid for a set
         function buildGrid(wordPairs, colors, setIndex) {
@@ -149,13 +216,20 @@
                     const square = document.createElement('div');
                     square.className = 'square empty';
                     square.style.backgroundColor = color;
+                    if (isDarkColor(color)) {
+                        square.style.color = '#ffffff';
+                        } else {
+                            square.style.color = '#000000';
+                        }
+
                     if (displayWord === null || correctWord === null) {
                         // Blank square
                         square.innerHTML = '';
                     } else {
+                        const placeholder = generatePlaceholder(correctWord);
                         square.innerHTML = `
                             <div class="word">${displayWord}</div>
-                            <input type="text" data-correct="${correctWord}" oninput="checkInput(this)">
+                            <input type="text" data-correct="${correctWord}" oninput="checkInput(this)" placeholder="${placeholder}">
                         `;
                     }
                     column.appendChild(square);
@@ -165,14 +239,13 @@
 
             setWrapper.appendChild(gridContainer);
 
+            setsContainer.appendChild(setWrapper);
+
             // Add divider after each set except the last one
             if (setIndex < sets.length - 1) {
                 const divider = document.createElement('div');
                 divider.className = 'divider';
-                setsContainer.appendChild(setWrapper);
                 setsContainer.appendChild(divider);
-            } else {
-                setsContainer.appendChild(setWrapper);
             }
         }
 
@@ -196,6 +269,11 @@
         sets.forEach((set, index) => {
             buildGrid(set.wordPairs, set.colors, index);
         });
+
+        // Add divider at the bottom
+        const bottomDivider = document.createElement('div');
+        bottomDivider.className = 'divider';
+        setsContainer.appendChild(bottomDivider);
     </script>
 </body>
 </html>
